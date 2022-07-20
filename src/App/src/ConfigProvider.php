@@ -34,7 +34,6 @@ class ConfigProvider
     {
         return [
             'invokables' => [
-                Handler\Homepage::class => Handler\Homepage::class,
             ],
             'factories'  => [
             ],
