@@ -3,5 +3,51 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+    {% if not bankHols %}
+        <p>There are no bank holiday's any time soon. Sorry :(</p>
+    {% else %}
+        <div class="container">
+            {% for region in bankHols %}
+                <h1>{{ region.division | replace({'-': ' '}) | capitalize }}</h1>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Date</th>
+                            <th>Notes</th>
+                            <th>Bunting?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for bankHol in region.events %}
+                            <tr>
+                                <td>{{ bankHol.title }}</td>
+                                <td>{{ bankHol.date }}</td>
+                                <td>{{ bankHol.notes }}</td>
+                                <td>{{ bankHol.bunting ? 'Yay' : 'Nay' }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>There's no bank holiday's anytime soon. Sorry :(</p>
+            {% endfor %}
+        </div>
+        <div class="container">
+            <p>
+                <a class="btn btn-primary" data-toggle="collapse" href="#rawCollapse" role="button" aria-expanded="false" aria-controls="rawCollapse">
+                    Expand raw JSON
+                </a>
+            </p>
+            <div class="collapse" id="rawCollapse">
+                <pre>
+                    {{ bankHols | json_encode(constant('JSON_PRETTY_PRINT')) }}
+                </pre>
+            </div>
+        </container>
 
+        <script type="application/javascript">
+            window.bankHols = {{ bankHols | json_encode() | raw }};
+        </script>
+    {% endif %}
 {% endblock %}
