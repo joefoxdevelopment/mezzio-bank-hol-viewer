@@ -9,17 +9,17 @@ use Mezzio\Template\TemplateRendererInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
+use function assert;
 use function get_class;
 
-class HomePageHandlerFactory
+class HomepageFactory
 {
-    public function __invoke(ContainerInterface $container) : RequestHandlerInterface
+    public function __invoke(ContainerInterface $container): RequestHandlerInterface
     {
-        $router   = $container->get(RouterInterface::class);
         $template = $container->has(TemplateRendererInterface::class)
             ? $container->get(TemplateRendererInterface::class)
             : null;
 
-        return new HomePageHandler(get_class($container), $router, $template);
+        return new Homepage($template);
     }
 }
