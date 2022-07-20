@@ -22,6 +22,8 @@ return [
         'factories'  => [
             // Fully\Qualified\ClassName::class => Fully\Qualified\FactoryName::class,
             App\Handler\Homepage::class => App\Handler\HomepageFactory::class,
+            App\BankHols\Get::class => App\BankHols\GetFactory::class,
+            'GovUkClient' => App\Http\GovUkClientFactory::class,
         ],
     ],
 ];
