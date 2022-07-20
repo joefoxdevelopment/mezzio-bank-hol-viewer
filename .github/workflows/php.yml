@@ -17,10 +17,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Setup PHP with PECL extension
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.2'
+
     - name: Validate composer.json and composer.lock
       run: ./composer.phar validate --strict
-      with:
-        php-version: 7.2
 
     - name: Cache Composer packages
       id: composer-cache
@@ -30,12 +33,9 @@ jobs:
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ runner.os }}-php-
-        php-version: 7.2
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
-      with:
-        php-version: 7.2
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
