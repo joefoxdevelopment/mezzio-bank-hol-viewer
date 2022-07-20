@@ -24,6 +24,8 @@ class Homepage implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        return new HtmlResponse('<html><body><h1>Hello There</h1><pre>' . json_encode($this->bankHols->getBankHols(), JSON_PRETTY_PRINT) . '</pre></body></html>');
+        return new HtmlResponse($this->template->render('app::home', [
+            'bankHols' => $this->bankHols->getBankHols(),
+        ]));
     }
 }
