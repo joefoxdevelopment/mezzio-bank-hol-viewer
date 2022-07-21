@@ -9,7 +9,7 @@
         <div class="container">
             {% for region in bankHols %}
                 <h1>{{ region.division | replace({'-': ' '}) | capitalize }}</h1>
-                <table class="table">
+                <table class="table table-hover" data-region="{{ region.division }}">
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -20,7 +20,11 @@
                     </thead>
                     <tbody>
                         {% for bankHol in region.events %}
-                            <tr>
+                            <tr class="js-bank-hol-row"
+                                data-title="{{ bankHol.title }}"
+                                data-date="{{ bankHol.date }}"
+                                data-bunting="{{ bankHol.bunting }}"
+                            >
                                 <td>{{ bankHol.title }}</td>
                                 <td>{{ bankHol.date }}</td>
                                 <td>{{ bankHol.notes }}</td>
@@ -44,10 +48,37 @@
                     {{ bankHols | json_encode(constant('JSON_PRETTY_PRINT')) }}
                 </pre>
             </div>
-        </container>
-
-        <script type="application/javascript">
-            window.bankHols = {{ bankHols | json_encode() | raw }};
-        </script>
+        </div>
     {% endif %}
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        window.bankHols = {{ bankHols | json_encode() | raw }};
+
+        var today = new Date();
+
+        $('table').each(function () {
+            var next = null;
+
+            $(this).find('.js-bank-hol-row').each(function () {
+                var bankHolDate = new Date($(this).data('date'));
+
+                if (today > bankHolDate) {
+                    return;
+                }
+
+                if (null === next) {
+                    next = this;
+                    return;
+                }
+
+                if (bankHolDate < (new Date($(next).data('date')))) {
+                    next = this;
+                }
+            });
+
+            $(next).addClass('table-success');
+        });
+    </script>
 {% endblock %}
