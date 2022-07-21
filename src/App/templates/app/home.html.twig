@@ -26,7 +26,7 @@
                                 data-bunting="{{ bankHol.bunting }}"
                             >
                                 <td>{{ bankHol.title }}</td>
-                                <td>{{ bankHol.date }}</td>
+                                <td>{{ bankHol.date | date("d/m/Y") }}</td>
                                 <td>{{ bankHol.notes }}</td>
                                 <td>{{ bankHol.bunting ? 'Yay' : 'Nay' }}</td>
                             </tr>
