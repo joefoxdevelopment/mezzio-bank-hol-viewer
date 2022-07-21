@@ -28,7 +28,7 @@
                                 <td>{{ bankHol.title }}</td>
                                 <td>{{ bankHol.date | date("d/m/Y") }}</td>
                                 <td>{{ bankHol.notes }}</td>
-                                <td>{{ bankHol.bunting ? 'Yay' : 'Nay' }}</td>
+                                <td>{{ bankHol.bunting ? '&#127881' : '&#128532;' | raw }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
