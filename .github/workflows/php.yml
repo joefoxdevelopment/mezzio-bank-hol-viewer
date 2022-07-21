@@ -17,7 +17,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Setup PHP with PECL extension
+    # This is what's responsible for setting the right php version
+    # https://github.com/marketplace/actions/setup-php-action
+    - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
         php-version: '7.2'
@@ -37,5 +39,14 @@ jobs:
     - name: Install dependencies
       run: ./composer.phar install --prefer-dist --no-progress
 
-    - name: Run test suite
+    - name: PHPUnit
       run: ./composer.phar run-script test
+
+    - name: PHP CodeSniffer
+      run: ./composer.phar run-script phpcs
+
+    - name: PHP Mess Detector
+      run: ./composer.phar run-script phpmd
+
+    - name: PHPStan
+      run: ./composer.phar run-script phpstan
