@@ -9,6 +9,9 @@ class GovUkClientFactory
 {
     private const GOV_UK_BASE_URI = 'https://www.gov.uk';
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function __invoke(ContainerInterface $container): Client
     {
         return new Client([

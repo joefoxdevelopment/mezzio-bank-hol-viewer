@@ -12,8 +12,9 @@ class GetFactory
 {
     public function __invoke(ContainerInterface $container): Get
     {
-        return new Get(
-            $container->get('GovUkClient')
-        );
+        /** @var ClientInterface */
+        $client = $container->get('GovUkClient');
+
+        return new Get($client);
     }
 }

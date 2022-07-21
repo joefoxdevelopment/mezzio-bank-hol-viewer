@@ -3,5 +3,5 @@ parameters:
     paths:
         - src
     excludePaths:
-        - src\App\ConfigProvider.php
+        - src\App\src\ConfigProvider.php
         - test

@@ -9,6 +9,7 @@ use Psr\Http\Client\ClientInterface;
 
 class Get
 {
+    /** @var ClientInterface */
     private $client;
 
     public function __construct(ClientInterface $client)
@@ -16,12 +17,15 @@ class Get
         $this->client = $client;
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function getBankHols(): array
     {
         $request = new Request('GET', 'bank-holidays.json');
 
         $response = $this->client->sendRequest($request);
 
-        return json_decode($response->getBody()->__toString(), true, 512);
+        return (array) json_decode($response->getBody()->__toString(), true, 512);
     }
 }

@@ -13,7 +13,10 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class Homepage implements RequestHandlerInterface
 {
+    /** @var TemplateRendererInterface */
     private $template;
+
+    /** @var BankHolsGet */
     private $bankHols;
 
     public function __construct(TemplateRendererInterface $template, BankHolsGet $bankHols)
@@ -22,6 +25,9 @@ class Homepage implements RequestHandlerInterface
         $this->bankHols = $bankHols;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         return new HtmlResponse($this->template->render('app::home', [
