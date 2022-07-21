@@ -3,7 +3,7 @@
 namespace App\Http;
 
 use GuzzleHttp\Client;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 class GovUkClientFactory
 {
